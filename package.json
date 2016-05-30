@@ -1,0 +1,22 @@
+{
+  "name": "ts-discriminated-union",
+  "version": "1.0.0",
+  "description": "",
+  "main": "./dist/index.umd.js",
+  "scripts": {
+    "preprocess": "node ./preprocess.js",
+    "tsc-lib": "./node_modules/.bin/tsc --project ./src/tsconfig.json",
+    "umd": "node ./createUmd.js",
+    "minify": "./node_modules/.bin/uglifyjs ./dist/index.umd.js --mangle --compress hoist_vars=true --output ./dist/index.umd.min.js",
+    "build": "npm run preprocess && npm run tsc-lib && npm run umd && npm run minify",
+
+    "tsc-examples": "./node_modules/.bin/tsc --project ./examples/tsconfig.json"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "lodash": "^4.12.0",
+    "typescript": "^1.8.10",
+    "uglify-js": "^2.6.2"
+  }
+}
