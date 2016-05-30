@@ -1,0 +1,1 @@
+# ts-discriminated-union
