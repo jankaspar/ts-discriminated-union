@@ -1,5 +1,7 @@
 # Typescript Discriminated Union
 
+This is work in progress, may not work at all and documentation may be misleading 
+
 Represent discriminated unions in typescript.
 - compile time exhaustive matching, never miss the case
 - correct return type inferred (if one case return `string` and other `number` result is `string | number`)
