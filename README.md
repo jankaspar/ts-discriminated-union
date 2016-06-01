@@ -1,6 +1,6 @@
 # Typescript Discriminated Union
 
-This is work in progress, may not work at all and documentation may be misleading 
+This is work in progress, may not work at all and documentation may be misleading.
 
 Represent discriminated unions in typescript.
 - compile time exhaustive matching, never miss the case
