@@ -1,6 +1,6 @@
 
 
-# Experimenting With typescript (simulating discriminated unions including exhaustive match)
+# Experimenting with Typescript (simulating discriminated unions including exhaustive match)
 
 Discriminated unions are well known from more functional languages like haskel, ML, F#
 You can think of them as enums on steroids, typesafe way of expresing various exclusive options.
