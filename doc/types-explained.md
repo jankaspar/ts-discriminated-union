@@ -1,7 +1,6 @@
 
 
-# Advanced type checks in typescript
-... aneb how to simulate discriminated unions in typescript including exhaustive match.
+# Experimenting With typescript (simulating discriminated unions including exhaustive match)
 
 Discriminated unions are well known from more functional languages like haskel, ML, F#
 You can think of them as enums on steroids, typesafe way of expresing various exclusive options.
