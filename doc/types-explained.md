@@ -25,11 +25,9 @@ function testA(a: A | number){
 }
 ```
 
-Sometimes you do not want to express union this way, for example when defining actions in redux framework (http://redux.js.org/).
-This framework suggest defining all possible actions in your application as plain js objects and handling
-all application state by calling update(applicationState, action) => newAplicationState.
+Sometimes you do not want to express union this way, for example when working with plain objects from json api response.
 
-In this case we can define type-checking function in typescript this way:
+In this case we can help typescript and define type-checking function this way:
 
 ```ts
 interface B { test: number }
@@ -43,10 +41,10 @@ function testB(b: B | number){
   }
 }
 ```
-In future versions typescript will probably support narrowing types based on property check (https://github.com/Microsoft/TypeScript/issues/186)
 
-But for now it can be quite verbose, we could do better and abstract common pattern for type-checking on plane object with type attribute
-And even better typescript supports literal types, i.e. you can express concrete string value in the type system, p.e.:
+Next version of typescript will support type narrowing on property check (https://github.com/Microsoft/TypeScript/issues/186), but for now this is only way to do it.
+
+Typescript has also very nice feature of literal types, i.e. you can express concrete string value in the type system, p.e.:
 
 ```ts
 var test: 'A' | 'B' | 'C';
@@ -54,7 +52,7 @@ test = 'A' // correct
 //test = 'E' // error
 ```
 
-Lets define common interface for plain typed object
+With this we can define type for plain object with "type" attribute.
 
 ```ts
 interface TypeLabel<TIdentifier>{
