@@ -1,10 +1,8 @@
-
-
 # Experimenting with Typescript (simulating discriminated unions including exhaustive match)
 
 Discriminated unions are well known from more functional languages like haskel, ML, F#
 You can think of them as enums on steroids, typesafe way of expresing various exclusive options.
-(look how f# does it: https://fsharpforfunandprofit.com/posts/discriminated-unions/)
+(look how f# does it: https://fsharpforfunandprofit.com/posts/discriminated-unions/ or more theoretic description: https://en.wikipedia.org/wiki/Tagged_union)
 When matching against discriminated union, compiler can check if your match is exhaustive,
 ie if you have handled all possible cases.
 
@@ -88,7 +86,7 @@ function matchType<T>(type: TypeDescriptor<T>, value: any): value is T {
 }
 ```
 
-Lets get back to plain js object, this is how we can implement helper to match on them and create them:
+Lets get back to plain js object, this is how we can implement helper to match them and create them:
 ```ts
 interface LabeledTypeDescriptor<TParams, TIdentifier> extends TypeMatcher<LabeledType<TIdentifier, TParams>>{
   identifier: string
@@ -132,8 +130,8 @@ testDog(dogKind.create({ name: 'Borek' })) // parameters is checked to be { name
 ```
 
 
-This is still quite verbose and if we don't use else branch the compiler will not error once we add another case to the union
-Lets try to find way how to represent the union itself.
+This is still quite verbose and if we don't use else branch the compiler will not error once we add another case to the union.
+Other option is to define whole flow controll using chaining api.
 
 This is so far my best try:
 
@@ -163,7 +161,7 @@ area({ type: 'RECTANGLE', width: 1, height: 2 });
 ```
 
 
-We might also want to be able to match on classes, lets try to define discriminated union the scala way
+We might also want to be able to match on classes, lets try to define discriminated union the scala way:
 
 ```ts
 class ContactInformation {
