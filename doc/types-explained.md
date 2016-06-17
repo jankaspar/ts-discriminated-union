@@ -1,10 +1,10 @@
 # Experimenting with Typescript (simulating discriminated unions including exhaustive match)
 
 Discriminated unions are well known from more functional languages like haskel, ML, F#
-You can think of them as enums on steroids, typesafe way of expresing various exclusive options.
+You can think of them as enums on steroids, typesafe way of expressing various exclusive options.
 (look how f# does it: https://fsharpforfunandprofit.com/posts/discriminated-unions/ or more theoretic description: https://en.wikipedia.org/wiki/Tagged_union)
 When matching against discriminated union, compiler can check if your match is exhaustive,
-ie if you have handled all possible cases.
+i.e. if you have handled all possible cases.
 
 Typescript extends javascript with types but they are compile time only and stripped away once the program runs.
 Javascript have very limited capability to check expression type in runtime. If we choose classes for representing the unions,
@@ -131,7 +131,7 @@ testDog(dogKind.create({ name: 'Borek' })) // parameters is checked to be { name
 
 
 This is still quite verbose and if we don't use else branch the compiler will not error once we add another case to the union.
-Other option is to define whole flow controll using chaining api.
+Other option is to define whole flow control using chaining api.
 
 This is so far my best try:
 
@@ -186,7 +186,7 @@ getContact(new Phone('132456'));
 ```
 
 
-So how we describe sutch chaining api to infer all type the way we want it to?
+So how we describe such chaining api to infer all type the way we want it to?
 Lets start by defining union, it needs to remember all types in an union in type parameters.
 Unfortunately it is not possible to express variable length of type parameters in typescript yet,
 so we need to define interface for each number of cases separately
@@ -204,8 +204,8 @@ interface Union3<T1, T2, T3> extends Union<T1 | T2 | T3,  FirstMatchable3<T1, T2
 
 
   Call to .match(x) returns interface which require at least one case (FirstMatchableN)
-  This interface for union of n cases is more complicated, it needs to have n methods to mach each individual case,
-  and return another interface for matcheble of n-1 cases (MatchableN)
+  This interface for union of n cases is more complicated, it needs to have n methods to match each individual case,
+  and return another interface for matchable of n-1 cases (MatchableN)
 
   Once we use case() we can call default() and retrieve result ba result(), if there is no case left.
 
@@ -245,13 +245,12 @@ interface Matchable3<T1, T2, T3, TResult>  extends Matchable<T1 | T2 | T3, TResu
 // ... repeat yourself to infinity
 ```
 
-When we have all types on hand lets implement the real functionality
+When we have all types on hand lets implement the real functionality.
 
+union(...a) function needs to return corresponding UnionType, match method just remembers the value we try to match, and previous results if any.
+Notice we actually do not remember union cases at runtime all checks are just compile time using the interfaces we defined earlier.
+case(...) method just check type and sets result to function result if there is no result yet. All methods return this to chain.
 
-
-  union(...a) function needs to return coresponding UnionType, match method just remembers the walue we try to match, and previous results if any.
-  Notice we actualy do not remember union cases at runtime all checks are just compile time using the interfaces we defined earlier.
-  case(...) method just chekc type and sets result to function result if there is no result yet. All methods return this to chain.
 
 ```ts
 function union<T1>(t1: TypeDescriptor<T1>): Union1<T1>
